@@ -41,10 +41,18 @@ public class UserBean {
     
    	
     //others:
-	public boolean hasValidData() {
-		return (!"".equals(this.last_name) && (!"".equals(this.first_name)) && !"".equals(this.birth_year));
+	
+    /**
+     * Skontroluje, jestli su vyplnene vsetky policka formulara.
+     *
+     * @return (true/false) jestli bol formular vyplneny spravne.
+     */
+    public boolean hasValidData() {
+		return (!"".equals(this.first_name) && !"".equals(this.last_name) && !"".equals(this.birth_year) && 
+            this.first_name != null && this.last_name != null && this.birth_year != null);
         
 	}
+
     
     public boolean isEmpty() {
 		return (this.first_name == null && this.last_name == null && this.birth_year == null);

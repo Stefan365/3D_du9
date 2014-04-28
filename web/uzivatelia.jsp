@@ -31,16 +31,24 @@
             String pag = (String) request.getParameter("page");
             try {
                 if ("registrace".equals(pag)) {
-                        %> <jsp:setProperty name="user" property="*" /> <%
+                            user.setFirstname(request.getParameter("first_name"));
+                            user.setLastname(request.getParameter("last_name"));
+                            user.setBirthyear(request.getParameter("birth_year"));
+
+                            %>         <%--<jsp:setProperty name="user" property="*" />--%> <%
                         if (user.hasValidData()) {
                             Pom.insertDbUser(request);
                             //ochrana pred F5. (opakovane zapisovanie uz raz zadanych udajov)
                             String go  ="uzivatelia.jsp";        
                             response.sendRedirect(response.encodeRedirectURL(go));
-
+                            %> 
+                            
+                            <%
                         } else {
                             %>
-                            <h3 id="paticka">Zadaj prosím všetky políčka!</h3>
+                            
+                            <h4 id=podpaticka> <font color = "red"> Zadaj prosím všetky políčka!</font></h4>
+                            
                             <%
                         }
                 }
@@ -74,14 +82,21 @@
                 %>
             </tr>
             <%
-                    }
+                }%>
+            </table>    
+            
+                            
+            <%
 
                 } catch (SQLException e) {
-                    sprava = "SOMETHING WENT WRONG!";
+                    e.printStackTrace();
+                    sprava = "SOMETHING WENT WRONG WITH DB!";
                 }
 
             %>
-        </table>
+        
+           
+
 
         <%-- ODOSIELACIE TLACITKO:--%>
         <div id="paticka">

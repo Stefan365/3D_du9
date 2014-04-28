@@ -33,7 +33,8 @@
                 }
                 
             } catch (SQLException e) {
-                sprava = "SOMETHING WENT WRONG!";
+                e.printStackTrace();
+                sprava = "SOMETHING WENT WRONG  WITH DB!";
             }
             
         %>

@@ -50,18 +50,19 @@
 
         <%
             } catch (SQLException e) {
+                e.printStackTrace();
                 sprava = "SOMETHING WENT WRONG WITH DB!";
             }
         %>
         <%-- SPATNE TLACITKO:--%>
-        <div id="paticka">
+        <div id=paticka>
             <form action = "userData.jsp" method = "post">
                 <input type="submit" value="Zpět" />
             </form>
         </div>
         
         <%-- TEXT O USPECHU:--%>
-        <h5 id="podmenu1">
+        <h5 id = podmenu1>
             <%= sprava%>
         </h5>
 

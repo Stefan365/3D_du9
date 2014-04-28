@@ -138,6 +138,7 @@ public class Pom {
         try {
             uid = Integer.parseInt(zoz[0]);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             return "";
         }
         return "" + uid;
@@ -152,8 +153,7 @@ public class Pom {
      */
     public static void deleteDbId(String uid) throws SQLException {
 
-        String sql;
-        sql = "DELETE FROM T_USER WHERE id = " + uid;
+        String sql = "DELETE FROM T_USER WHERE id = " + uid;
 
         Statement stmt;
 
@@ -163,6 +163,5 @@ public class Pom {
         }
         stmt.executeUpdate(sql);
         
-    }
-
+    }    
 }

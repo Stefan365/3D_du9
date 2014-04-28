@@ -40,6 +40,7 @@
                 <%
                 
             } catch (SQLException e) {
+                e.printStackTrace();
                 sprava = "SOMETHING WENT WRONG WITH DB!";
             }
         %>
