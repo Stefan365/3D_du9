@@ -25,6 +25,7 @@
 
         <%
             String sprava = "";
+            request.setCharacterEncoding("utf-8");
             
             String sel_uid = request.getParameter("sel_uid");
             String fn = request.getParameter("first_name");

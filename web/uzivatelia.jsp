@@ -28,7 +28,10 @@
 
         <%
             String sprava = "";
+            
+            request.setCharacterEncoding("utf-8");
             String pag = (String) request.getParameter("page");
+            
             try {
                 if ("registrace".equals(pag)) {
                             user.setFirstname(request.getParameter("first_name"));
@@ -46,6 +49,7 @@
                             <%
                         } else {
                             %>
+
                             
                             <h4 id=podpaticka> <font color = "red"> Zadaj prosím všetky políčka!</font></h4>
                             

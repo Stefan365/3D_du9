@@ -23,6 +23,8 @@
     <body>
         <h3>DELETING USER</h3>
         <% 
+            request.setCharacterEncoding("utf-8");
+            
             String sel_uid = request.getParameter("sel_uid");
             String sprava = "";
             try{

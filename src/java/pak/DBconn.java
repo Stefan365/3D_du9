@@ -18,12 +18,12 @@ import java.util.logging.Logger;
 public class DBconn {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DATABASE_URL = "jdbc:mysql://localhost/IIVOS_java1?characterEncoding=utf8";
-    static final String USER = "root";
-    static final String PASSWORD = "";
-    //static final String DATABASE_URL = "jdbc:mysql://project.iivos.cz:9906/iivos3Dalfa?characterEncoding=utf8";
-    //static final String USER = "veres";
-    //static final String PASSWORD = "Stefan.Veres";
+    //static final String DATABASE_URL = "jdbc:mysql://localhost/IIVOS_java1?characterEncoding=utf8";
+    //static final String USER = "root";
+    //static final String PASSWORD = "";
+    static final String DATABASE_URL = "jdbc:mysql://project.iivos.cz:9906/iivos3Dalfa?characterEncoding=utf8";
+    static final String USER = "veres";
+    static final String PASSWORD = "Stefan.Veres";
 
     public static Connection connection;
 
@@ -55,7 +55,7 @@ public class DBconn {
             + " (id INTEGER NOT NULL AUTO_INCREMENT, " + " first_name VARCHAR(30) NOT NULL,"
             + " last_name VARCHAR(30) NOT NULL,  birth_year VARCHAR(30) NOT NULL,"
             
-            + " PRIMARY KEY(id))";
+            + " PRIMARY KEY(id)) DEFAULT CHARSET=utf8";
 
         stmt.executeUpdate(sql);
         stmt.close();
@@ -223,6 +223,20 @@ public class DBconn {
             synchronized (DBconn.class) {        
                 stmt = (Statement) connection.createStatement();
             }
+            /*
+            String sql = "SELECT COUNT(*) FROM information_schema.tables WHERE " 
+                + "table_schema = '" + DBconn.$DATABASE."'". 
+                " AND table_name = 'T_USER'";
+            $result = mysql_query($sql);
+            $row  = mysql_fetch_row($result);            
+            
+            if ($row[0] == 1){
+                return true;
+            } else {
+                return false;
+            }*/
+
+            
             String sql = "SELECT * FROM T_USER";
             ResultSet rs = stmt.executeQuery(sql);
             return true;

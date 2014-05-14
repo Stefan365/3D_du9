@@ -21,6 +21,7 @@
     </head>
     <body>
         <%
+            request.setCharacterEncoding("utf-8");
             String cn, uid, fn, ln, by, sprava = "";
             try {
                 cn = request.getParameter("sel_user");
