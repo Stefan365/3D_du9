@@ -75,7 +75,7 @@ public class Pom {
     public static List<Integer> getAllUsersId() throws SQLException {
         int uid;
         List<Integer> listIds = new ArrayList<>();
-        String query = "SELECT id from T_USER";
+        String query = "SELECT id from T_USER_DU3";
         Statement stmt;
         synchronized (DBconn.class) {
             stmt = (DBconn.connection).createStatement();
@@ -105,7 +105,7 @@ public class Pom {
 
         List<String> comboNames = new ArrayList();
         String uid, fn, ln, cn;
-        String query = "SELECT id, first_name, last_name from T_USER";
+        String query = "SELECT id, first_name, last_name from T_USER_DU3";
         Statement stmt;
         synchronized (DBconn.class) {
             stmt = (DBconn.connection).createStatement();
@@ -153,7 +153,7 @@ public class Pom {
      */
     public static void deleteDbId(String uid) throws SQLException {
 
-        String sql = "DELETE FROM T_USER WHERE id = " + uid;
+        String sql = "DELETE FROM T_USER_DU3 WHERE id = " + uid;
 
         Statement stmt;
 

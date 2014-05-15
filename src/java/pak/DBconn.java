@@ -21,9 +21,14 @@ public class DBconn {
     //static final String DATABASE_URL = "jdbc:mysql://localhost/IIVOS_java1?characterEncoding=utf8";
     //static final String USER = "root";
     //static final String PASSWORD = "";
+    //static final String DATABASE = "IIVOS_java1";
+    
+    
     static final String DATABASE_URL = "jdbc:mysql://project.iivos.cz:9906/iivos3Dalfa?characterEncoding=utf8";
     static final String USER = "veres";
     static final String PASSWORD = "Stefan.Veres";
+    static final String DATABASE = "iivos3Dalfa";
+    
 
     public static Connection connection;
 
@@ -51,7 +56,7 @@ public class DBconn {
         synchronized (DBconn.class) {
             stmt = (Statement) connection.createStatement();
         }
-        String sql = "CREATE TABLE T_USER"
+        String sql = "CREATE TABLE T_USER_DU3"
             + " (id INTEGER NOT NULL AUTO_INCREMENT, " + " first_name VARCHAR(30) NOT NULL,"
             + " last_name VARCHAR(30) NOT NULL,  birth_year VARCHAR(30) NOT NULL,"
             
@@ -72,7 +77,7 @@ public class DBconn {
      */
     public static void insertValuesUser(String fn, String ln, String by) throws SQLException {
 
-        String sql = "INSERT INTO T_USER (first_name, last_name, birth_year) "
+        String sql = "INSERT INTO T_USER_DU3 (first_name, last_name, birth_year) "
             + " VALUES (?, ?, ?)";
         PreparedStatement st;
         synchronized (DBconn.class) {        
@@ -102,13 +107,33 @@ public class DBconn {
         synchronized (DBconn.class) {
             stmt = (Statement) connection.createStatement();
         }
-        String sql = "UPDATE T_USER SET first_name = '" + fn + "', "
+        String sql = "UPDATE T_USER_DU3 SET first_name = '" + fn + "', "
             + "last_name= '" + ln + "', "
             + "birth_year= '" + by + "'"
             + " WHERE id = " + uid;
         
         stmt.executeUpdate(sql);
 
+    }
+
+    //3.
+    /**
+     * Drop any table in DB
+     * 
+     * @param tn DB table name
+     * @throws java.sql.SQLException
+     */
+    public static void dropTable(String tn) throws SQLException {
+        Statement stmt;
+        synchronized (DBconn.class) {
+            stmt = (Statement) connection.createStatement();
+        }
+        String sql = "DROP TABLE " + tn;
+
+        if (!(stmt.executeUpdate(sql) == 1)) {
+            throw new SQLException();
+        }
+        System.out.println("Droped table: " + tn + " in given database...");
     }
 
     
@@ -126,7 +151,7 @@ public class DBconn {
         synchronized (DBconn.class) {
             stmt = (Statement) connection.createStatement();
         }
-        String sql = "SELECT first_name FROM T_USER WHERE id = " + uid;
+        String sql = "SELECT first_name FROM T_USER_DU3 WHERE id = " + uid;
         
         ResultSet rs = stmt.executeQuery(sql);
         String fn = "";
@@ -151,7 +176,7 @@ public class DBconn {
         synchronized (DBconn.class) {
             stmt = (Statement) connection.createStatement();
         }
-        String sql = "SELECT last_name FROM T_USER WHERE id = " + uid;
+        String sql = "SELECT last_name FROM T_USER_DU3 WHERE id = " + uid;
 
         ResultSet rs = stmt.executeQuery(sql);
         String ln = "";
@@ -175,7 +200,7 @@ public class DBconn {
         synchronized (DBconn.class) {        
             stmt = (Statement) connection.createStatement();
         }
-        String sql = "SELECT birth_year FROM T_USER WHERE id = " + uid;
+        String sql = "SELECT birth_year FROM T_USER_DU3 WHERE id = " + uid;
 
         ResultSet rs = stmt.executeQuery(sql);
         String by = "";
@@ -199,7 +224,7 @@ public class DBconn {
         synchronized (DBconn.class) {        
             stmt = (Statement) connection.createStatement();
         }
-        String sql = "SELECT COUNT(*) AS NUM FROM T_USER";
+        String sql = "SELECT COUNT(*) AS NUM FROM T_USER_DU3";
         int nr;
         try (ResultSet rs = stmt.executeQuery(sql)) {
             nr = 0;
@@ -213,33 +238,31 @@ public class DBconn {
     
     //4.
     /**
-     * Zjistuje jestli existuje DB tabulka T_USER, 
+     * Zjistuje jestli existuje DB tabulka T_USER_DU3, 
      *
-     * @return ano/ne pro existenci T_USER v databazi.
+     * @return ano/ne pro existenci T_USER_DU3 v databazi.
      */
-    public static boolean existsT_USER() {
+    public static boolean existsT_USER_DU3() {
         java.sql.Statement stmt = null;
         try {
             synchronized (DBconn.class) {        
                 stmt = (Statement) connection.createStatement();
             }
-            /*
+            int count = 0;
             String sql = "SELECT COUNT(*) FROM information_schema.tables WHERE " 
-                + "table_schema = '" + DBconn.$DATABASE."'". 
-                " AND table_name = 'T_USER'";
-            $result = mysql_query($sql);
-            $row  = mysql_fetch_row($result);            
+                + "table_schema = '" + DBconn.DATABASE + "'" + 
+                " AND table_name = 'T_USER_DU3'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
             
-            if ($row[0] == 1){
+            if (count == 1){
                 return true;
             } else {
                 return false;
-            }*/
+            }
 
-            
-            String sql = "SELECT * FROM T_USER";
-            ResultSet rs = stmt.executeQuery(sql);
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
@@ -263,7 +286,7 @@ public class DBconn {
      * @throws java.sql.SQLException
      */
     public static synchronized boolean initDB() throws SQLException {
-        if (!DBconn.existsT_USER()){
+        if (!DBconn.existsT_USER_DU3()){
             DBconn.createTableUser();
             DBconn.insertValuesUser("Stefan", "Veres", "1979");
             return true;
