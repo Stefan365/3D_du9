@@ -18,16 +18,15 @@ import java.util.logging.Logger;
 public class DBconn {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    //static final String DATABASE_URL = "jdbc:mysql://localhost/IIVOS_java1?characterEncoding=utf8";
-    //static final String USER = "root";
-    //static final String PASSWORD = "";
-    //static final String DATABASE = "IIVOS_java1";
+    static final String DATABASE_URL = "jdbc:mysql://localhost/IIVOS_java1?characterEncoding=utf8";
+    static final String USER = "root";
+    static final String PASSWORD = "";
+    static final String DATABASE = "IIVOS_java1";
     
-    
-    static final String DATABASE_URL = "jdbc:mysql://project.iivos.cz:9906/iivos3Dalfa?characterEncoding=utf8";
-    static final String USER = "veres";
-    static final String PASSWORD = "Stefan.Veres";
-    static final String DATABASE = "iivos3Dalfa";
+    //static final String DATABASE_URL = "jdbc:mysql://project.iivos.cz:9906/iivos3Dalfa?characterEncoding=utf8";
+    //static final String USER = "veres";
+    //static final String PASSWORD = "Stefan.Veres";
+    //static final String DATABASE = "iivos3Dalfa";
     
 
     public static Connection connection;
@@ -245,7 +244,7 @@ public class DBconn {
     public static boolean existsT_USER_DU3() {
         java.sql.Statement stmt = null;
         try {
-            synchronized (DBconn.class) {        
+            synchronized (DBconn.class) {
                 stmt = (Statement) connection.createStatement();
             }
             int count = 0;
